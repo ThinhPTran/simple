@@ -24,5 +24,5 @@
   {:dev
    {:dependencies [[binaryage/devtools "0.9.10"]]}
 
-   :prod { }
-   })
+   :prod {}})
+
