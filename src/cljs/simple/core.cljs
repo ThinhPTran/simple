@@ -7,6 +7,8 @@
    [simple.config :as config]))
 
 
+(defonce time-updater (js/setInterval
+                        #(re-frame/dispatch-sync [::events/timer (js/Date.)]) 1000))
 
 (defn dev-setup []
   (when config/debug?
