@@ -164,7 +164,7 @@
      :label (str "Welcome to " @name)
      :level :level1
      :style {:color "#ffffff"
-             :background "#0000ff"}]))
+             :background "#3477db"}]))
 
 (defn test-button
   []
