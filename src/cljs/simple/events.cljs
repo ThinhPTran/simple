@@ -15,3 +15,9 @@
     [db [_ value]]
     (db/set-timer db value)))
 
+(re-frame/reg-event-db
+  ::menu-on
+  (fn
+    [db [_ value]]
+    (db/set-menu-on db value)))
+

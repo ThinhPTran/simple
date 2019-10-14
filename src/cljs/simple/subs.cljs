@@ -16,3 +16,8 @@
   ::time-color
   (fn [db]
     (:time-color db)))
+
+(re-frame/reg-sub
+  ::menu-on
+  (fn [db]
+    (:menu-on db)))
