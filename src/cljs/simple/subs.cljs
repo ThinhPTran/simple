@@ -21,3 +21,9 @@
   ::menu-on
   (fn [db]
     (:menu-on db)))
+
+(re-frame/reg-sub
+  ::main-page
+  (fn [db]
+    (:main-page db)))
+

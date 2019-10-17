@@ -16,10 +16,12 @@
 
 (defn ^:dev/after-load mount-root []
   (re-frame/clear-subscription-cache!)
-  (views/main-panel))
+  (reagent/render [views/main-panel]
+                  (.getElementById js/document "app")))
 
 
 (defn init []
   (re-frame/dispatch-sync [::events/initialize-db])
+  (re-frame/dispatch-sync [::events/main-page "chatting"])
   (dev-setup)
   (mount-root))

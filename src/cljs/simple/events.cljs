@@ -21,3 +21,9 @@
     [db [_ value]]
     (db/set-menu-on db value)))
 
+(re-frame/reg-event-db
+  ::main-page
+  (fn
+    [db [_ value]]
+    (db/set-main-page db value)))
+

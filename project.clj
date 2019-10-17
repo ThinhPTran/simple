@@ -5,6 +5,8 @@
                                org.clojure/google-closure-library]]
                  [thheller/shadow-cljs "2.8.62"]
                  [reagent "0.8.1"]
+                 [reagent-utils "0.3.3"]
+                 [secretary "1.2.1"]
                  [re-frame "0.10.9"]
                  [re-com "2.6.0"]]
 
