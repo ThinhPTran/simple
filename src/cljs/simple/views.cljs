@@ -9,59 +9,54 @@
     [simple.pages.chatting :as chatting]))
 
 
-(defn left-sidebar []
- (let [menu-on (re-frame/subscribe [::subs/menu-on])
+(defn sidebar []
+  [:div#sidebar-wrapper
+   (let [menu-on (re-frame/subscribe [::subs/menu-on])
          value (if @menu-on false true)
          menu-name (if @menu-on "Menu" "M")
          item1 (if @menu-on "Chat room" "C")
          item2 (if @menu-on "Meeting room reservation" "M")
          item3 (if @menu-on "Others" "O")]
-    [:ul
-     {:style {:list-style-type "none"
-              :font-size "20px"
-              :text-indent "10px"
-              :margin "0px"
-              :padding "0px"
-              :line-height "45px"
-              :background "#3477db"}}
-     [:li>a {:onClick #(re-frame/dispatch [::events/menu-on value])
-             :style {:color "#ffffff"}} menu-name]
-     [:li>a {:onClick #(re-frame/dispatch [::events/main-page "chatting"])
-             :style {:color "#ffffff"}} item1]
-     [:li>a {:onClick #(re-frame/dispatch [::events/main-page "booking"])
-             :style {:color "#ffffff"}} item2]
-     [:li>a {:onClick #(re-frame/dispatch [::events/main-page "others"])
-             :style {:color "#ffffff"}} item3]]))
+    [:ul.sidebar-nav
+     [:li.sidebar-brand>a {:onClick #(re-frame/dispatch [::events/menu-on value])} menu-name]
+     [:li>a {:onClick #(re-frame/dispatch [::events/main-page "chatting"])} item1]
+     [:li>a {:onClick #(re-frame/dispatch [::events/main-page "booking"])} item2]
+     [:li>a {:onClick #(re-frame/dispatch [::events/main-page "others"])} item3]])])
 
+(defn left-sidebar
+  []
+  (let [menu-on (re-frame/subscribe [::subs/menu-on])
+        mydisplay (if @menu-on "none" "block")
+        myclass (if @menu-on "" "toggled")]
+    [:div#wrapper
+      {:class myclass}
+      [sidebar]]))
 
 (defn my-left-sidebar
   []
   (let [menu-on (re-frame/subscribe [::subs/menu-on])
         mysize (if @menu-on "250px" "50px")]
    [re-com/v-box
-    :width mysize
-    :height "100%"
-    :style {:background "#3477db"}
+    :size mysize
     :children [[left-sidebar]]]))
 
+
+;; (defn title []
+;;   (let [name (re-frame/subscribe [::subs/name])]
+;;     [re-com/title
+;;      :label (str "Welcome to " @name)
+;;      :level :level1
+;;      :style {:color "#ffffff"
+;;              :background "#3477db"}]))
 
 (defn title
   []
   (let [name (re-frame/subscribe [::subs/name])]
-     [re-com/h-box
-       :width "100%"
-       :height "60px"
-       :style {:background "#3477db"}
-       :children [[re-com/box
-                   :size "9"
-                   :style {:color "#ffffff"
-                           :font-size "50px"}
-                   :child (str "Welcome to " @name)]
-                  [re-com/box
-                   :size "1"
-                   :style {:color "#ffffff"
-                           :font-size "25px"}
-                   :child [:a {:style {:color "#ffffff"}} (str "Login")]]]]))
+    [:div
+     {:style {:background "#3477db"}}
+     [:h1
+      {:style {:color "#ffffff"}}
+      (str "Welcome to " @name)]]))
 
 
 (defn clock
@@ -77,11 +72,7 @@
             style {:style {:color @time-color
                            :font-size "50px"
                            :background "#3477db"}}]
-        [re-com/box
-         :width "100%"
-         :height "60px"
-         :style (:style style)
-         :child time-str]))))
+        [:div style time-str]))))
 
 (defn my-simple-page
   []
@@ -92,11 +83,10 @@
                        :else chatting/main-page)]
     [re-com/h-box
       :width "100%"
-      :height "598px" ;; Make it dynamic later
+      :height "100px"
       :gap "10px"
       :children [[my-left-sidebar]
                  [my-main-page]]]))
-
 
 
 (defn main-panel

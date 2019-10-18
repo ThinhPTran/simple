@@ -21,7 +21,7 @@
 (defn main-page
   []
   [re-com/h-box
-   :width "auto"
-   :height "100%"
+   :width "100%"
+   :height "100px"
    :gap "10px"
    :children [[title]]])
