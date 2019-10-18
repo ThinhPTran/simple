@@ -119,7 +119,7 @@
 
 (defn wrap-as-element-in-form
   [element]
-  [:div {:class="row form-group"}
+  [:div
    element])
 
 
@@ -128,7 +128,7 @@
         name (atom nil)
         password (atom nil)]
     (fn []
-      [:div {:class "signup-wrapper"}
+      [:div
        [:h2 "Welcome to Shinhan Center"]
        [:form
         (wrap-as-element-in-form [email-form email-address])
