@@ -32,7 +32,7 @@
 (defn main-page
   []
   [re-com/h-box
-   :width "100%"
+   :width "auto"
    :height "100px"
    :gap "10px"
    :children [[mydatepicker]

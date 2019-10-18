@@ -27,3 +27,7 @@
   (fn [db]
     (:main-page db)))
 
+(re-frame/reg-sub
+  ::id
+  (fn [db]
+    (:id db)))

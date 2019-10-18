@@ -5,7 +5,8 @@
    :timer (js/Date.)
    :time-color "#f88"
    :menu-on true
-   :main-page "chatting"})
+   :main-page "chatting"
+   :id nil})
 
 (defn set-timer
   [db value]
@@ -18,3 +19,7 @@
 (defn set-main-page
   [db value]
   (assoc db :main-page value))
+
+(defn set-id
+  [db value]
+  (assoc db :id value))

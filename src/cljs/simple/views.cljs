@@ -5,6 +5,7 @@
     [re-com.core :as re-com]
     [simple.subs :as subs]
     [simple.events :as events]
+    [simple.pages.login :as login]
     [simple.pages.booking :as booking]
     [simple.pages.chatting :as chatting]))
 
@@ -77,7 +78,9 @@
 (defn my-simple-page
   []
   (let [options (re-frame/subscribe [::subs/main-page])
+        id (re-frame/subscribe [::subs/id])
         my-main-page (cond
+                       (= @id nil) login/main-page
                        (= @options "chatting") chatting/main-page
                        (= @options "booking") booking/main-page
                        :else chatting/main-page)]

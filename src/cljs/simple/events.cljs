@@ -27,3 +27,8 @@
     [db [_ value]]
     (db/set-main-page db value)))
 
+(re-frame/reg-event-db
+  ::id
+  (fn
+    [db [_ value]]
+    (db/set-id db value)))
