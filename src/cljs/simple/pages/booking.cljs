@@ -19,21 +19,21 @@
                     ;"2" {:id "2" :sort 1 :name "Time range 2 with some extra text appended to the end." :from "18:00" :to "22:30"}
                     "3" {:id "3" :sort 2 :name "Anh Viet" :from "06:00" :to "18:00"}}]
     [re-com/v-box
-     :size "auto"
+     :width "auto"
      :children [[mytable/data-table rows col-widths]]]))
 
 (defn mydatepicker
   []
   [re-com/v-box
-   :size "250px"
+   :width "250px"
    :children [[re-com/datepicker
                :on-change #(js/alert "change")]]])
 
 (defn main-page
   []
   [re-com/h-box
-   :width "100%"
-   :height "100px"
+   :width "auto"
+   :height "100%"
    :gap "10px"
    :children [[mydatepicker]
               [row-button-demo]]])

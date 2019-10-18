@@ -3,7 +3,7 @@
 (def default-db
   {:name "Shinhan Center"
    :timer (js/Date.)
-   :time-color "#f88"
+   :time-color "#ff1111"
    :menu-on true
    :main-page "chatting"})
 
