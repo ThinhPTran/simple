@@ -7,7 +7,8 @@
    [re-com.util :as re-util]
    [simple.subs :as subs]
    [simple.utils.mytable :as mytable]
-   [simple.events :as events]))
+   [simple.events :as events]
+   [simple.serverevents :as se]))
 
 
 (defn check-nil-then-predicate
@@ -128,12 +129,18 @@
         name (atom nil)
         password (atom nil)]
     (fn []
-      [:div
-       [:h2 "Welcome to Shinhan Center"]
-       [:form
-        (wrap-as-element-in-form [email-form email-address])
-        (wrap-as-element-in-form [name-form name])
-        (wrap-as-element-in-form [password-form password])]])))
+      [re-com/v-box
+       :width "auto"
+       :height "100%"
+       :children [[:h2 "Welcome to Shinhan Center"]
+                  [:form
+                   (wrap-as-element-in-form [email-form email-address])
+                   (wrap-as-element-in-form [name-form name])
+                   (wrap-as-element-in-form [password-form password])]
+                  [:div
+                    [re-com/button
+                     :label "Register"
+                     :on-click #(se/login-request)]]]])))
 
 
 (defn title []
@@ -148,6 +155,6 @@
   []
   [re-com/h-box
    :width "auto"
-   :height "100%"
+   :height "500px"
    :gap "10px"
    :children [[home-page]]])

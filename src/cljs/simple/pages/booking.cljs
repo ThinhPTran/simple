@@ -33,7 +33,7 @@
   []
   [re-com/h-box
    :width "auto"
-   :height "100px"
+   :height "100%"
    :gap "10px"
    :children [[mydatepicker]
               [row-button-demo]]])

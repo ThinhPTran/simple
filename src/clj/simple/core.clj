@@ -2,6 +2,8 @@
   (:gen-class)
   (:require [org.httpkit.server :as server]
             [ring.util.response :refer [response resource-response]]
+            [ring.middleware.defaults :refer :all]
+            [ring.middleware.anti-forgery :as anti-forgery]
             [compojure.core :refer [defroutes POST GET]]
             [compojure.route :as route]
             [compojure.handler :as handler]
@@ -13,6 +15,7 @@
   (GET  "/" [] (resource-response "public/index.html"))
   (GET  "/chsk" req (sys/ring-ws-handoff req))
   (POST "/chsk" req (sys/ring-ws-post req))
+  (POST "/login" req (sys/login-handler req))
   (route/resources "/")
   (route/not-found "<h1>Page not found</h1>"))
 
@@ -26,8 +29,8 @@
 
 (def app
   (-> app-routes
-      (handler/site)
-      (wrap-request-logging)))
+      (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
+
 
 (defn -main [& args]
   (println "Starting server")

@@ -6,7 +6,7 @@
             [taoensso.timbre :as timbre :refer (tracef debugf infof warnf errorf)]
             [clojure.string :as str]))
 
-;; (timbre/set-level! :trace) ; Uncomment for more logging
+;;(timbre/set-level! :trace) ; Uncomment for more logging
 (reset! sente/debug-mode?_ true) ; Uncomment for extra debug info
 
 (let [;; Serializtion format, must use same val for client + server:
@@ -32,13 +32,28 @@
     (let [oldsk (:any old)
           newsk (:any new)
           newlogin (nth (diff oldsk newsk) 1)]
-      (infof (str "Connected uids change: " new))
-      (infof (str "oldsk: " oldsk))
-      (infof (str "newsk: " newsk))
-      (infof (str "newlogin: " newlogin)))))
+      (println (str "Connected uids change: " new))
+      (println (str "oldsk: " oldsk))
+      (println (str "newsk: " newsk))
+      (println (str "newlogin: " newlogin)))))
 
 ;; We can watch this atom for changes if we like
 (add-watch connected-uids :connected-uids connected-uids-change-handler)
+
+;; Messages handler
+(defn login-handler
+  "Here's where you'll add your server-side login/auth procedure (Friend, etc.).
+  In our simplified example we'll just always successfully authenticate the user
+  with whatever user-id they provided in the auth request."
+  [ring-req]
+  (let [{:keys [session params]} ring-req
+        {:keys [user-id]} params]
+    (println "Login request: %s" params)
+    (println "Session: %s" (str session))
+    (if true
+      (do
+        ;; Successful login!!!
+        {:status 200 :session (assoc session :uid user-id)}))))
 
 (defn- ws-msg-handler []
   (fn [{:keys [event] :as msg} _]

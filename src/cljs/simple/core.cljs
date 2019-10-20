@@ -4,7 +4,8 @@
    [re-frame.core :as re-frame]
    [simple.events :as events]
    [simple.views :as views]
-   [simple.config :as config]))
+   [simple.config :as config]
+   [simple.serverevents :as se]))
 
 
 (defonce time-updater (js/setInterval
@@ -25,3 +26,4 @@
   (re-frame/dispatch-sync [::events/main-page "chatting"])
   (dev-setup)
   (mount-root))
+;;  (se/init-connection))
