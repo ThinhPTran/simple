@@ -26,11 +26,8 @@
 
 (defn left-sidebar
   []
-  (let [menu-on (re-frame/subscribe [::subs/menu-on])
-        mydisplay (if @menu-on "none" "block")
-        myclass (if @menu-on "" "toggled")]
-    [:div#wrapper
-      {:class myclass}
+  (let [menu-on (re-frame/subscribe [::subs/menu-on])]
+    [:div
       [sidebar]]))
 
 (defn my-left-sidebar
@@ -38,7 +35,7 @@
   (let [menu-on (re-frame/subscribe [::subs/menu-on])
         mysize (if @menu-on "250px" "50px")]
    [re-com/v-box
-    :size mysize
+    :width mysize
     :children [[left-sidebar]]]))
 
 

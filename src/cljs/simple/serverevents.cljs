@@ -42,9 +42,10 @@
 
 ;; Message to server start
 (defn login-request
-  []
+  [username password]
   (.log js/console "Login request!!!")
-  (send-channel! [:user/login {:user  "ha ha"}]))
+  (send-channel! [:user/login {:user  username
+                               :password password}]))
 
 (defn init-connection
   []
