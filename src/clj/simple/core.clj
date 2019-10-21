@@ -2,8 +2,6 @@
   (:gen-class)
   (:require [org.httpkit.server :as server]
             [ring.util.response :refer [response resource-response]]
-            [ring.middleware.defaults :refer :all]
-            [ring.middleware.anti-forgery :as anti-forgery]
             [compojure.core :refer [defroutes POST GET]]
             [compojure.route :as route]
             [compojure.handler :as handler]
@@ -29,7 +27,9 @@
 
 (def app
   (-> app-routes
-      (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
+      (handler/site)
+      (wrap-request-logging)))
+;;      (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
 
 
 (defn -main [& args]
