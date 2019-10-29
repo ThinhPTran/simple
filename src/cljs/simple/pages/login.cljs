@@ -15,19 +15,26 @@
   [name-atom]
   [re-com/input-text
    :model name-atom
-   :on-change #(reset! name-atom %)])
+   :on-change #(re-frame/dispatch [::events/user_name %])])
+
+(defn email-form
+  [email-atom]
+  [re-com/input-text
+   :model email-atom
+   :on-change #(re-frame/dispatch [::events/email %])])
 
 
 (defn password-form
   [password]
   [re-com/input-password
    :model password
-   :on-change #(reset! password %)])
+   :on-change #(re-frame/dispatch [::events/password %])])
 
 
 (defn home-page []
-  (let [myname (reagent/atom nil)
-        mypass (reagent/atom nil)]
+  (let [myname (re-frame/subscribe [::subs/user_name])
+        myemail (re-frame/subscribe [::subs/email])
+        mypass (re-frame/subscribe [::subs/password])]
     (fn []
       [re-com/v-box
        :width "auto"
@@ -37,12 +44,15 @@
                   [re-com/label :label "Name"]
                   [name-form myname]
                   [re-com/gap :size "10px"]
+                  [re-com/label :label "Email"]
+                  [email-form myemail]
+                  [re-com/gap :size "10px"]
                   [re-com/label :label "Password"]
                   [password-form mypass]
                   [re-com/gap :size "20px"]
                   [re-com/button
                    :label "Register"
-                   :on-click #(se/login-request @myname @mypass)]]])))
+                   :on-click #(se/register-request @myname @myemail @mypass)]]])))
 
 
 (defn title []

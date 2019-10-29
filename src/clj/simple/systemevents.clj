@@ -4,7 +4,8 @@
             [clojure.data :as da :refer [diff]]
             [taoensso.sente.server-adapters.http-kit :refer (get-sch-adapter)]
             [taoensso.timbre :as timbre :refer (tracef debugf infof warnf errorf)]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [simple.db :as db]))
 
 ;;(timbre/set-level! :trace) ; Uncomment for more logging
 (reset! sente/debug-mode?_ true) ; Uncomment for extra debug info
@@ -55,10 +56,16 @@
         ;; Successful login!!!
         {:status 200 :session (assoc session :uid user-id)}))))
 
+(defn register-handler
+  [data]
+  (db/insert_new_user data))
+
+
 (defn- ws-msg-handler []
   (fn [{:keys [event] :as msg} _]
     (let [[id data :as ev] event]
       (case id
+        :user/register (register-handler data)
         (println "Unmatched event: " id " data: " data)))))
 
 (defn ws-message-router []

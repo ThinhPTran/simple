@@ -18,6 +18,9 @@
                  [com.taoensso/sente "1.11.0" :exclusions [org.clojure/core.async
                                                            org.clojure/tools.reader]]
                  [clj-time "0.15.2"]
+                 [org.clojure/java.jdbc "0.7.10"]
+                 [org.xerial/sqlite-jdbc "3.8.11.2"]
+                 [org.clojure/data.csv "0.1.4"]
                  ;;; Transit deps optional; may be used to aid perf. of larger data payloads
                  ;;; (see reference example for details):
                  [com.cognitect/transit-clj  "0.8.319"]

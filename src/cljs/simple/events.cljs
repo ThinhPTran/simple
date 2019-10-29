@@ -32,3 +32,21 @@
   (fn
     [db [_ value]]
     (db/set-id db value)))
+
+(re-frame/reg-event-db
+  ::user_name
+  (fn
+    [db [_ value]]
+    (db/set-user-name db value)))
+
+(re-frame/reg-event-db
+  ::email
+  (fn
+    [db [_ value]]
+    (db/set-email db value)))
+
+(re-frame/reg-event-db
+  ::password
+  (fn
+    [db [_ value]]
+    (db/set-password db value)))

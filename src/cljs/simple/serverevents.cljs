@@ -41,11 +41,12 @@
     (.log js/console "Unmatched connection event with " (str id) " and data " (str data))))
 
 ;; Message to server start
-(defn login-request
-  [username password]
+(defn register-request
+  [user_name email password]
   (.log js/console "Login request!!!")
-  (send-channel! [:user/login {:user  username
-                               :password password}]))
+  (send-channel! [:user/register {:user_name  user_name
+                                  :email email
+                                  :password password}]))
 
 (defn init-connection
   []

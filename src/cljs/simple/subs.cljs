@@ -31,3 +31,18 @@
   ::id
   (fn [db]
     (:id db)))
+
+(re-frame/reg-sub
+  ::user_name
+  (fn [db]
+    (:user_name db)))
+
+(re-frame/reg-sub
+  ::email
+  (fn [db]
+    (:email db)))
+
+(re-frame/reg-sub
+  ::password
+  (fn [db]
+    (:password db)))

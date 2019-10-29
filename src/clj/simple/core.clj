@@ -29,7 +29,6 @@
   (-> app-routes
       (handler/site)
       (wrap-request-logging)))
-;;      (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
 
 
 (defn -main [& args]

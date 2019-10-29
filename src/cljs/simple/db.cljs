@@ -6,7 +6,10 @@
    :time-color "#f88"
    :menu-on true
    :main-page "chatting"
-   :id nil})
+   :id nil
+   :user_name nil
+   :email nil
+   :password nil})
 
 (defn set-timer
   [db value]
@@ -23,3 +26,15 @@
 (defn set-id
   [db value]
   (assoc db :id value))
+
+(defn set-user-name
+  [db value]
+  (assoc db :user_name value))
+
+(defn set-email
+  [db value]
+  (assoc db :email value))
+
+(defn set-password
+  [db value]
+  (assoc db :password value))
