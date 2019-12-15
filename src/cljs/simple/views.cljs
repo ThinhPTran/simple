@@ -49,12 +49,13 @@
 
 (defn title
   []
-  (let [name (re-frame/subscribe [::subs/name])]
+  (let [name (re-frame/subscribe [::subs/name])
+        myid (re-frame/subscribe [::subs/id])]
     [:div
      {:style {:background "#3477db"}}
      [:h1
       {:style {:color "#ffffff"}}
-      (str "Welcome to " @name)]]))
+      (str "Welcome to " @name " - " @myid)]]))
 
 
 (defn clock

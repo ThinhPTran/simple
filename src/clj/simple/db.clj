@@ -38,13 +38,33 @@
 (def get_user_list_query
   "select * from gci_user_mas where 1 = 1 order by id asc")
 
+(def get_user_query
+  "select * from gci_user_mas where user_name = ?")
+
 (defn get_user_list_func
   []
   (try (jdbc/query db-conf [get_user_list_query])
        (catch Exception e
          (println (.getMessage e)))))
 
+(defn get_user_inf
+  [user_name]
+  (let [query_rs (jdbc/query db-conf [get_user_query user_name])]
+    (->> query_rs
+        (first))))
+
+;;(get_user_inf "trphthinh")
+
+;;(and (= "thinh" "thinh") (= "123456" "123456"))
+
+(defn delete_user_list
+  []
+  (try (jdbc/delete! db-conf :gci_user_mas ["1 = 1"])
+       (catch Exception e
+         (println (.getMessage e)))))
+
 (get_user_list_func)
+;(delete_user_list)
 
 (def validate_uniquity_query
   "select * from gci_user_mas where user_name = ? or email = ?")

@@ -48,16 +48,28 @@
   with whatever user-id they provided in the auth request."
   [ring-req]
   (let [{:keys [session params]} ring-req
-        {:keys [user-id]} params]
-    (println "Login request: %s" params)
-    (println "Session: %s" (str session))
-    (if true
+        {:keys [user-id password]} params
+        dbinf (db/get_user_inf (str user-id))
+        dbuser (:user_name dbinf)
+        dbpass (:password dbinf)
+        pass? (if (and (= user-id dbuser) (= password dbpass)) true false)]
+    (println "Login request: " params)
+    (println "Session: " (str session))
+    (println "pass?: " (str pass?))
+    (if pass?
       (do
         ;; Successful login!!!
-        {:status 200 :session (assoc session :uid user-id)}))))
+        {:status 200 :session (assoc session :uid user-id)})
+      (do
+        ;; Fail
+        {:status 400 :session (assoc session :uid user-id)}))))
 
 (defn register-handler
   [data]
+  (println "Registeering... ")
+  (println "User: %s", (:user_name data))
+  (println "email: ", (:email data))
+  (println "password: ", (:password data))
   (db/insert_new_user data))
 
 
@@ -66,6 +78,7 @@
     (let [[id data :as ev] event]
       (case id
         :user/register (register-handler data)
+
         (println "Unmatched event: " id " data: " data)))))
 
 (defn ws-message-router []

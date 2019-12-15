@@ -52,7 +52,10 @@
                   [re-com/gap :size "20px"]
                   [re-com/button
                    :label "Register"
-                   :on-click #(se/register-request @myname @myemail @mypass)]]])))
+                   :on-click #(se/register-request @myname @myemail @mypass)]
+                  [re-com/button
+                   :label "Login"
+                   :on-click #(se/init-connection @myname @myemail @mypass)]]])))
 
 
 (defn title []

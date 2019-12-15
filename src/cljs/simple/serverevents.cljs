@@ -1,5 +1,7 @@
 (ns simple.serverevents
   (:require [taoensso.sente :as sente :refer (cb-success?)]
+            [re-frame.core :as re-frame]
+            [simple.events :as events]
             [clojure.string :as str]))
 
 
@@ -49,22 +51,26 @@
                                   :password password}]))
 
 (defn init-connection
-  []
+  [user_name email password]
   (sente/ajax-lite "/login"
                          {:method :post
                           :headers {:X-CSRF-Token (:csrf-token @chsk-state)}
-                          :params  {:user-id (:csrf-token @chsk-state)}}
+                          :params  {:user-id (str user_name)
+                                    :password (str password)}}
 
                          (fn [ajax-resp]
-                           (.log js/console "csrf-token: " (:csrf-token @chsk-state))
-                           (.log js/console "Ajax login response: %s" (str ajax-resp))
-                           (let [login-successful? true] ; Your logic here
+                           (let [mystatus (:?status ajax-resp)
+                                 login-successful? (if (= 200 mystatus) true false)]
+                             (.log js/console "csrf-token: " (:csrf-token @chsk-state))
+                             (.log js/console "Ajax login response: %s" (str ajax-resp))
+                             (.log js/console "status: %s" (str mystatus))
 
                              (if-not login-successful?
                                (.log js/console "Login failed")
                                (do
                                  (.log js/console "Login successful")
-                                 (sente/chsk-reconnect! chsk)))))))
+                                 (sente/chsk-reconnect! chsk)
+                                 (re-frame/dispatch [::events/id user_name])))))))
 
 ;; Message to server end
 
