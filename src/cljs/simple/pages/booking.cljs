@@ -13,7 +13,7 @@
 
 (defn row-button-demo
   []
-  (let [col-widths {:sort "2.6em" :name "7.5em" :from "4em" :to "4em" :actions "20.5em"}
+  (let [col-widths {:sort "2.6em" :name "7.5em" :from_t "4em" :to_t "4em" :actions "30em"}
         rows       {"1" {:id "1" :sort 0 :name "Lee Junwoo" :from "18:00" :to "22:30"}
                     "2" {:id "2" :sort 1 :name "Thinh P. Tran" :from "18:00" :to "22:30"}
                     ;"2" {:id "2" :sort 1 :name "Time range 2 with some extra text appended to the end." :from "18:00" :to "22:30"}

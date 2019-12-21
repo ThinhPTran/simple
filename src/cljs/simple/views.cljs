@@ -11,18 +11,19 @@
 
 
 (defn sidebar []
-  [:div#sidebar-wrapper
-   (let [menu-on (re-frame/subscribe [::subs/menu-on])
-         value (if @menu-on false true)
-         menu-name (if @menu-on "Menu" "M")
-         item1 (if @menu-on "Chat room" "C")
-         item2 (if @menu-on "Meeting room reservation" "M")
-         item3 (if @menu-on "Others" "O")]
+  (let [menu-on (re-frame/subscribe [::subs/menu-on])
+        mywidth (if @menu-on "250px" "50px")
+        value (if @menu-on false true)
+        menu-name (if @menu-on "Menu" "M")
+        item1 (if @menu-on "Chat room" "C")
+        item2 (if @menu-on "Meeting room reservation" "M")
+        item3 (if @menu-on "Others" "O")]
+   [:div#sidebar-wrapper {:style {:width mywidth}}
     [:ul.sidebar-nav
      [:li.sidebar-brand>a {:onClick #(re-frame/dispatch [::events/menu-on value])} menu-name]
      [:li>a {:onClick #(re-frame/dispatch [::events/main-page "chatting"])} item1]
      [:li>a {:onClick #(re-frame/dispatch [::events/main-page "booking"])} item2]
-     [:li>a {:onClick #(re-frame/dispatch [::events/main-page "others"])} item3]])])
+     [:li>a {:onClick #(re-frame/dispatch [::events/main-page "others"])} item3]]]))
 
 (defn left-sidebar
   []
@@ -78,7 +79,8 @@
   (let [options (re-frame/subscribe [::subs/main-page])
         id (re-frame/subscribe [::subs/id])
         my-main-page (cond
-                       (= @id nil) login/main-page
+                       ;;(= @id nil) login/main-page
+                       (= @options "login") login/main-page
                        (= @options "chatting") chatting/main-page
                        (= @options "booking") booking/main-page
                        :else chatting/main-page)]

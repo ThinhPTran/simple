@@ -26,14 +26,26 @@
        (catch Exception e
          (println (.getMessage e)))))
 
-;;(drop-table :gci_user_mas)
+(drop-table :gci_user_mas)
 
-;;(create-table :gci_user_mas [[:id :integer "PRIMARY KEY" "AUTOINCREMENT"]
-;;                             [:user_name :varchar "NOT NULL"]
-;;                             [:email :varchar "NOT NULL"]
-;;                             [:password :varchar "NOT NULL"]
-;;                             [:created_at :timestamp
-;;                              "NOT NULL" "DEFAULT CURRENT_TIMESTAMP")))))
+(create-table :gci_user_mas [[:id :integer "PRIMARY KEY" "AUTOINCREMENT"]
+                             [:user_name :varchar "NOT NULL"]
+                             [:email :varchar "NOT NULL"]
+                             [:password :varchar "NOT NULL"]
+                             [:created_at :timestamp
+                              "NOT NULL" "DEFAULT CURRENT_TIMESTAMP"]])
+
+(drop-table :gcb_rmbk_mas)
+
+(create-table :gcb_rmbk_mas [[:id :integer "PRIMARY KEY" "AUTOINCREMENT"]
+                             [:name :varchar "NOT NULL"]
+                             [:regis_dt :varchar "NOT NULL"]
+                             [:from_t :varchar "NOT NULL"]
+                             [:to_t :varchar "NOT NULL"]
+                             [:action :varchar "NOT NULL"]
+                             [:created_at :timestamp
+                              "NOT NULL" "DEFAULT CURRENT_TIMESTAMP"]])
+
 
 (def get_user_list_query
   "select * from gci_user_mas where 1 = 1 order by id asc")
@@ -83,7 +95,9 @@
   (when (not (validate_uniquity_func (:user_name user_data) (:email user_data)))
     (jdbc/insert! db-conf :gci_user_mas user_data)))
 
-;;(insert_new_user {:user_name "thinhptran"
-;;                  :email "trphthinh@gmail.com"
-;;                  :password "123456")))
+;; (insert_new_user {:user_name "thinhptran"
+;;                   :email "trphthinh@gmail.com"
+;;                   :password "123456"})
+
+
 
